@@ -1,0 +1,8 @@
+build/
+*.o
+*.out
+*.swp
+.DS_Store
+compile_commands.json
+.zed
+Concept.txt
