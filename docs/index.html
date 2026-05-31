@@ -754,8 +754,8 @@
 
                 <h3>Entry point</h3>
                 <p>
-                    The entry point is the function <code>int:main()</code>. To
-                    terminate the process, <code>done()</code> is used — a
+                    The entry point is the function <code>freed:main()</code>.
+                    To terminate the process, <code>done()</code> is used — a
                     separate construct semantically different from a regular
                     <code>return</code>.
                 </p>
@@ -767,7 +767,7 @@
                         </div>
                         <span class="lang-tag">sp</span>
                     </div>
-                    <pre><code><span class="tp">int</span><span class="op">:</span><span class="fn">main</span><span class="pu">()</span> <span class="pu">{</span>
+                    <pre><code><span class="tp">freed</span><span class="op">:</span><span class="fn">main</span><span class="pu">()</span> <span class="pu">{</span>
     <span class="fn">done</span><span class="pu">();</span>        <span class="cm">// exit code 0</span>
     <span class="cm">// done(1);   // exit code 1 — error</span>
 <span class="pu">};</span></code></pre>
