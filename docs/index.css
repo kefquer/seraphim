@@ -6,6 +6,10 @@ header .logo {
 .logo-icon {
     width: 28px;
     height: 28px;
-    vertical-align: middle;
-    filter: drop-shadow(0 0 2px rgba(201, 150, 60, 0.3));
+    display: inline-block;
+    filter: drop-shadow(0 0 2px rgba(201, 150, 60, 0.4));
+    transition: filter 0.2s;
+}
+header .logo:hover .logo-icon {
+    filter: drop-shadow(0 0 4px var(--gold));
 }

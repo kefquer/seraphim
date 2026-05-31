@@ -9,16 +9,19 @@
 namespace Codegen {
 
     class CodeGenerator {
-        public:
-            CodeGenerator();
+    public:
+        CodeGenerator();
+        std::unique_ptr<llvm::Module> generate(const AST::Programm& program);
 
-            std::unique_ptr<llvm::Module> generate(const AST::Programm& programm);
+    private:
+        llvm::LLVMContext m_context;
+        llvm::IRBuilder<> m_builder;
+        std::unique_ptr<llvm::Module> m_module;
 
-        private:
-            llvm::LLVMContext m_context;
-            llvm::IRBuilder<> m_builder;
-            std::unique_ptr<llvm::Module> m_module;
-
-            void generateFunction(const AST::FunctionDecl& funcDecl);
+        void declareExternalFunctions();
+        void generateFunction(const AST::FunctionDecl& funcDecl);
+        void generateStatement(AST::AstNode* node);
+        void generateSproute(AST::SprouteStmt* stmt);
     };
+
 }

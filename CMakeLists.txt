@@ -19,10 +19,10 @@ add_library(spc_lib OBJECT
 
 target_include_directories(spc_lib PUBLIC compiler/include)
 
-# ====== Главный исполняемый файл ======
+# Главный исполняемый файл
 add_executable(spc compiler/src/main.cpp)
-target_link_libraries(spc PRIVATE spc_lib)
+target_link_libraries(spc PRIVATE spc_lib ${llvm_libs})
 
-# ====== Тесты ======
+# Тесты (если нужны)
 add_executable(parser_tests tests/compiler/parser_tests.cpp)
-target_link_libraries(parser_tests PRIVATE spc_lib)
+target_link_libraries(parser_tests PRIVATE spc_lib ${llvm_libs})
