@@ -14,8 +14,8 @@ class NoName {
     };
 
     int:function1() {
-        function:func; // записывает возврощаемые данные функцией в переменную
-        // function():func; / запускает функцию
+        function:func; /// записывает возврощаемые данные функцией в переменную
+        //function():func; / запускает функцию
         sproute(input);
 
         return input;

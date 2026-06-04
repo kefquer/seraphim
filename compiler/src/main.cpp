@@ -36,7 +36,7 @@ int main(int argc, char* argv[]) {
         }
     }
 
-    // Чтение исходника
+    // Read source
     std::ifstream file(inputFile);
     if (!file) {
         std::cerr << "Cannot open file: " << inputFile << "\n";
@@ -46,7 +46,7 @@ int main(int argc, char* argv[]) {
     buffer << file.rdbuf();
     std::string source = buffer.str();
 
-    // Лексер + Парсер
+    // Lexer + Parser
     Lexer::Lexer lexer;
     lexer.reset(source);
     Parser::Parser parser(lexer);
@@ -58,7 +58,7 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 
-    // Сбор !include директив
+    // Collect !include directive
     std::vector<std::string> includes;
     for (const auto& decl : program->declarations) {
         if (auto* inc = dynamic_cast<AST::IncludeDirective*>(decl.get())) {
@@ -66,7 +66,7 @@ int main(int argc, char* argv[]) {
         }
     }
 
-    // Кодогенерация
+    // Codegen
     Codegen::CodeGenerator codegen;
     auto module = codegen.generate(*program);
     if (!module) {
@@ -74,7 +74,7 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 
-    // Инициализация ТОЛЬКО x86
+    // Initialize only x86
     LLVMInitializeX86TargetInfo();
     LLVMInitializeX86Target();
     LLVMInitializeX86TargetMC();
@@ -96,7 +96,7 @@ int main(int argc, char* argv[]) {
 
     module->setTargetTriple(triple);
 
-    // Генерация объектного файла
+    // Generate obj file
     std::string objFile = "output.o";
     std::error_code ec;
     llvm::raw_fd_ostream dest(objFile, ec);
@@ -113,7 +113,7 @@ int main(int argc, char* argv[]) {
     pass.run(*module);
     dest.flush();
 
-    // Линковка с библиотеками из !include
+    // Linking libs with !include
     std::string linkCmd = "clang " + objFile;
     for (const auto& lib : includes) {
         linkCmd += " ../stdlib/" + lib + "/" + lib + ".o";
